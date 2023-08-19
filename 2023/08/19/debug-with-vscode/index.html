@@ -6,15 +6,64 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://masteryi1024.github.io">
-  <title>Archives: 2023/8 | 艺大师</title>
+  <title>使用 VScode 调试 c++ 程序 | 艺大师</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="艺大师">
-<meta property="og:url" content="https://masteryi1024.github.io/archives/2023/08/index.html">
+  <meta name="description" content="念书时候写程序，很简单，hello world 级别的程序，我还是会调试的，那时候用 dev c++，用 visual studio，都会调试。结果上班后遇到问题全是用 printf 或者 cout，一句一句加打印。原本还以为一上班就会立刻掌握了编程核心技能，没想到这一 printf 就是好几年:p 后来机缘巧合，公司一个大哥教了我怎么用 vs code 调试一个开源程序：kde 的 kwin。后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 VScode 调试 c++ 程序">
+<meta property="og:url" content="https://masteryi1024.github.io/2023/08/19/debug-with-vscode/index.html">
 <meta property="og:site_name" content="艺大师">
+<meta property="og:description" content="念书时候写程序，很简单，hello world 级别的程序，我还是会调试的，那时候用 dev c++，用 visual studio，都会调试。结果上班后遇到问题全是用 printf 或者 cout，一句一句加打印。原本还以为一上班就会立刻掌握了编程核心技能，没想到这一 printf 就是好几年:p 后来机缘巧合，公司一个大哥教了我怎么用 vs code 调试一个开源程序：kde 的 kwin。后">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/extension.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/extension-cpp.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/extension-cmake.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main-debugger.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main-error-cl.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main-error-gdb.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main-error-windows.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/mingw-w64-download.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/mingw-w64-move.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/mingw-gcc-v-test.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/search-advanced-system-settings.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/advanced-system-settings.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/system-variables-path.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/add-to-path.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/mingw-gcc-v.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/vscode-run.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/run-result.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/vscode-debug.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cmake-notification.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cmake-select-kit.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cmake-configuring-done.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cmake-reconfigure.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/qt-pro-file-list.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/qmake-debug.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cd-build-and-make.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/execute-hello.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/create-launch-json.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/create-launch-json-select-debugger.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-initial.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-add-configuration.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-configuration-added.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-modify-configuration.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-start-debug.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/tasks-json.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/tasks-configured.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/tasks-called-by-launch-json.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/remote-extension.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/connect-to-host.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/add-new-ssh-host.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/new-ssh-host.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/ssh-configuration-file.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/click-connect.png">
+<meta property="og:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/select-host-system.png">
+<meta property="article:published_time" content="2023-08-19T07:30:45.000Z">
+<meta property="article:modified_time" content="2023-08-19T07:31:58.352Z">
 <meta property="article:author" content="艺大师">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/extension.png">
   
     <link rel="alternative" href="/atom.xml" title="艺大师" type="application/atom+xml">
   
@@ -140,103 +189,354 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-debug-with-vscode" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      使用 VScode 调试 c++ 程序
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/08/19/debug-with-vscode/" class="archive-article-date">
+
+        
+        <a href="/2023/08/19/debug-with-vscode/" class="archive-article-date">
   	<time datetime="2023-08-19T07:30:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-19</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/19/debug-with-vscode/">使用 VScode 调试 c++ 程序</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>念书时候写程序，很简单，hello world 级别的程序，我还是会调试的，那时候用 dev c++，用 visual studio，都会调试。结果上班后遇到问题全是用 printf 或者 cout，一句一句加打印。原本还以为一上班就会立刻掌握了编程核心技能，没想到这一 printf 就是好几年:p</p>
+<p>后来机缘巧合，公司一个大哥教了我怎么用 vs code 调试一个开源程序：kde 的 kwin。后来还给了我一个文件，这个文件可以用来调试 kwin 的特效插件。这两个调试例子，加上我自己的摸索和学习，我大概了解了使用 vs code 调试大部分程序的方法。</p>
+<p>同时，组里很多同事其实都不会调试，清一色的加打印。（都是毕业没几年的应届生，也没什么大佬带，我认为无可厚非，不对，应该说无可非议。）我是一个比较倾向于开源的人，对于自己知道的东西，我觉得可以告诉别人，让别人也能获得这种便利。实际上，我确实使用调试的办法，给至少两个同事快速定位了程序的问题。都是他们看了有一段时间的问题，认为不好定位。结果，用上调试，我只需复现一次问题，就定位到了出现问题的代码部分，并给出了解决方案或者临时验证方案，一共不超过 10 分钟。当发现我给出的方案确实能解决问题时，他们也被我种草了调试:D</p>
+<p>本篇介绍使用 vs code 调试，只是因为我习惯用 vs code，其他的 IDE 肯定也可以，比如 Qt Creator、Visual Studio 等等。我看很多公司的招聘里还写要求熟练使用 Qt Creator 或者 Visual Studio 呢。不过重点不在用的 IDE，只要你能熟练使用一种 IDE 就好。其他的可以再学。</p>
+<p>本篇中关于 vs code 调试的部分，我采用初学者的视角，一步一步的来，遇到问题解决问题的心态，希望这样会有助于提高你之后对 vs code 的了解。</p>
+<p>废话少说，让我们开始吧！</p>
+<h1 id="一、调试的要求-–-也是调试不成功时可以检查的点"><a href="#一、调试的要求-–-也是调试不成功时可以检查的点" class="headerlink" title="一、调试的要求 – 也是调试不成功时可以检查的点"></a>一、调试的要求 – 也是调试不成功时可以检查的点</h1><p>据我自己的总结，需要满足以下三点，才能正常调试：</p>
+<ol>
+<li>系统里有调试器；</li>
+<li>程序要编译为 debug 版本；</li>
+<li>调试时需要加载 debug 版本的程序；</li>
+</ol>
+<p>其中第 2 点和第 3 点，看似雷同，其实不然。第二点编译为 debug 版本，就是字面意思，把你要调试的程序编译为 debug 版本；第三点是指，在你调试的时候，你的程序加载的是你编译出来的 debug 版本的二进制或库吗？有没有可能你编译的程序只安装到了你的编译目录里，而调试时候用的是系统里原来的 release 版本二进制或库呢？</p>
+<h1 id="二、vs-code-调试的准备条件"><a href="#二、vs-code-调试的准备条件" class="headerlink" title="二、vs code 调试的准备条件"></a>二、vs code 调试的准备条件</h1><p>如果你看不太明白上面一节的描述，不用担心，我们慢慢来。先看一下使用 vs code 调试需要准备哪些条件。</p>
+<h2 id="2-1-打开-vs-code-并创建一个-cpp-文件"><a href="#2-1-打开-vs-code-并创建一个-cpp-文件" class="headerlink" title="2.1 打开 vs code 并创建一个 .cpp 文件"></a>2.1 打开 vs code 并创建一个 .cpp 文件</h2><p>虽然调试的第一点要求是有调试器，看起来我们好像是需要先安装调试器，但不着急，我们从源文件说起。这是很自然的情况，在你不了解调试的时候，你肯定也是有源代码的，所以我们从源代码说起。下载并安装 vs code 就不说了。</p>
+<h3 id="2-1-1-创建-main-cpp-文件"><a href="#2-1-1-创建-main-cpp-文件" class="headerlink" title="2.1.1 创建 main.cpp 文件"></a>2.1.1 创建 main.cpp 文件</h3><p>这里我已经打开 cs code 并创建好了 main.cpp。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/extension.png" alt="vs code"></p>
+<h2 id="2-2-安装必要或好用的扩展"><a href="#2-2-安装必要或好用的扩展" class="headerlink" title="2.2 安装必要或好用的扩展"></a>2.2 安装必要或好用的扩展</h2><h3 id="2-2-1-C-扩展"><a href="#2-2-1-C-扩展" class="headerlink" title="2.2.1 C++ 扩展"></a>2.2.1 C++ 扩展</h3><p>上一节的图中，我打开 main.cpp 后，vs code 右下角出现一个小提示，询问我“是否要安装推荐到 C++ 扩展？”，当然是安装了，这个扩展可以展示代码高亮，进行代码跳转等功能，使用 vs code 看 C&#x2F;C++ 程序很推荐安装这个扩展。请点击安装。如果你的 vs code 没有弹出提示，没关系，点击侧边的 Extensions 按钮，搜索 c++ 即可安装。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/extension-cpp.png" alt="C++ 扩展"></p>
+<h3 id="2-2-2-CMake-扩展"><a href="#2-2-2-CMake-扩展" class="headerlink" title="2.2.2 CMake 扩展"></a>2.2.2 CMake 扩展</h3><p>按照相同的方法，搜索 cmake，安装微软官方的 CMake Tools 扩展。使用 cmake 管理的工程，这个扩展很方便，可以直接点击 vs code 下方工具栏的按钮进行 cmake 配置。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/extension-cmake.png" alt="CMake Tools 扩展"></p>
+<h1 id="三、开始使用-vs-code-调试"><a href="#三、开始使用-vs-code-调试" class="headerlink" title="三、开始使用 vs code 调试"></a>三、开始使用 vs code 调试</h1><h2 id="3-1-简单-main-cpp-的调试"><a href="#3-1-简单-main-cpp-的调试" class="headerlink" title="3.1 简单 main.cpp 的调试"></a>3.1 简单 main.cpp 的调试</h2><p>首先我们往 main.cpp 里写点内容。程序写得很简单，因为我们重点是调试，不是代码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">3</span>;</span><br><span class="line">    <span class="type">bool</span> b = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (b) &#123;</span><br><span class="line">        a = a + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        a = a - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main.png" alt="调试 main.cpp"></p>
+<p>不知你有没有注意到，安装了 C++ 扩展后，vs code 右上角多出一个小三角和小虫子的按钮，见上图中右上角。让我们点击一下试试。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main-debugger.png" alt="调试 main.cpp"></p>
+<p>vs code 弹出了一个框框。有三个选项，我挨个点了一下，都不行。像下面这三张图片这样：</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main-error-cl.png" alt="cl 报错"></p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main-error-gdb.png" alt="gdb 报错"></p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/debug-main-error-windows.png" alt="Windows 报错"></p>
+<p>第一个报错，其实我也不知道是在说什么，不管它，感兴趣的同学可以自己了解一下。第二个和第三个报错都是在说“程序找不到”的问题。</p>
+<p>为什么会找不到程序呢？因为我们没有编译啊！那应该怎么编译呢？</p>
+<h3 id="3-1-1-准备条件-–-安装编译器"><a href="#3-1-1-准备条件-–-安装编译器" class="headerlink" title="3.1.1 准备条件 – 安装编译器"></a>3.1.1 准备条件 – 安装编译器</h3><p>C++ 的编译器，g++ 比较常用吧可能，或者说我比较常用。</p>
+<h4 id="3-1-1-1-linux-安装-gcc，g"><a href="#3-1-1-1-linux-安装-gcc，g" class="headerlink" title="3.1.1.1 linux 安装 gcc，g++"></a>3.1.1.1 linux 安装 gcc，g++</h4><p>Linux 系统下安装 gcc 和 g++ 再简单不过了，以 ubuntu 举例，只需要执行这一条命令就够了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yds@yds-pc:~$ sudo apt install gcc g++</span><br></pre></td></tr></table></figure>
 
+<p>安装后，你可以运行<code>g++ -v</code>看一下你安装的 g++ 的版本。</p>
+<p>既然安装了 gcc 和 g++，反正一会儿要用到调试器，不如把 gdb 也安装了吧（gdb 是 Linux 上很常用的调试器）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yds@yds-pc:~$ sudo apt install gdb</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-1-1-2-Windows-安装-gcc，g"><a href="#3-1-1-2-Windows-安装-gcc，g" class="headerlink" title="3.1.1.2 Windows 安装 gcc，g++"></a>3.1.1.2 Windows 安装 gcc，g++</h4><p>Windows 上安装 gcc、g++，需要安装 <a target="_blank" rel="noopener" href="https://www.mingw-w64.org/downloads/">MinGW-w64</a>，下载页面我选择的是 <a target="_blank" rel="noopener" href="https://www.mingw-w64.org/downloads/#w64devkit">w64devkit</a>，然后转到它的 <a target="_blank" rel="noopener" href="https://github.com/skeeto/w64devkit/releases">github</a> 去下载最新版本。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/mingw-w64-download.png" alt="下载 MinGW-w64"></p>
+<p>下载到的 zip 压缩包，解压出来，然后把整个目录放到 C 盘的<code>Program Files</code>目录下。放到别处也可以，自定义。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/mingw-w64-move.png" alt="移动 MinGW-w64"></p>
+<p>这时候，gcc 这些命令还是不能用的，你可以打开 Windows 的终端（Windows 应用商店里能下载到）试一下执行<code>gcc -v</code>看看。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/mingw-gcc-v-test.png" alt="MinGW-w64 gcc 仍不可用"></p>
+<p>我们需要把 MinGW-w64 的路径添加到系统的环境变量 PATH 里。打开你的开始菜单，搜索“高级系统设置”。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/search-advanced-system-settings.png" alt="搜索高级系统设置"></p>
+<p>点击“高级”页面下部的“环境变量”。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/advanced-system-settings.png" alt="高级系统设置"></p>
+<p>双击“系统变量”部分的变量<code>Path</code>。把刚才<code>MinGW-w64</code>的路径加上。然后一层一层地点击“确定”按钮。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/system-variables-path.png" alt="系统变量 Path"></p>
+<p>添加路径的时候注意，需要写到<code>bin</code>目录才行，见下图。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/add-to-path.png" alt="添加到 Path"></p>
+<p>这时候，你再打开一个新的 Windows 终端，执行<code>gcc -v</code>，就能看到 gcc 的版本了，也就是说：你的 Windows 系统有 gcc 能用了。实际上，g++，gdb 等也都一并可用了。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/mingw-gcc-v.png" alt="MinGW-w64 gcc 版本"></p>
+<p>看吧，Windows 上安装这么复杂，所以还是挺推荐大家多用用 Linux 系统的。把精力放在你的工作上。不过在 Windows 上解决这些问题，也能很好的帮助你了解计算机，了解很多用法。有同事问我好几次，为什么我的 Linux 用的那么熟练（相对来说，可别真的以为我很厉害），我后来想想，有一点很重要：在 Linux 上，我基本不用文件管理器，所有操作全在终端里进行。而我见的很多人，习惯性地就打开文件管理器，从 U 盘复制东西、找代码 都先打开文件管理器，这很不利于你学习 Linux。</p>
+<p>注：我在 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/config-mingw#_installing-the-mingww64-toolchain">vs code 官方文档</a>里看到了安装 MinGW-w64 的<a target="_blank" rel="noopener" href="https://www.msys2.org/">推荐地址</a>，看起来是一个项目，还提供了包管理工具（pacman，类似于 apt 的工具），应该还不错。我文中并没有用这种方式，感觉新概念太多，介绍的话会偏离这篇文章的主题。我后面会转向这种工具，因为有包管理工具让我觉得很方便，可以随时更新。</p>
+<h2 id="3-2-继续-main-cpp-的调试"><a href="#3-2-继续-main-cpp-的调试" class="headerlink" title="3.2 继续 main.cpp 的调试"></a>3.2 继续 main.cpp 的调试</h2><p>好了，现在我们安装了编译器和调试器，再来看看 main.cpp 的运行和调试吧：）</p>
+<h3 id="3-2-1-运行"><a href="#3-2-1-运行" class="headerlink" title="3.2.1 运行"></a>3.2.1 运行</h3><p>很奇怪，当我点击右上角的小三角的时候，还是跟以前一样，不能运行，不能调试，报错也是一样的。</p>
+<p>如果你也有这个疑问，请关掉所有的 vs code 窗口，重新打开一次，让 vs code 能感受到你新增加的 Path，这样它才能知道你的系统上有什么编译器和调试器。</p>
+<p>当你重新打开 vs code 之后，再次点击右上角的运行按钮，你可以看到你刚安装的编译器已经在列表里了：</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/vscode-run.png" alt="点击运行按钮"></p>
+<p>选择 g++.exe 的那一项。vs code 会自动编译并运行你的程序，下图是我运行后的样子，底下自动弹出了终端，显示正常退出。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/run-result.png" alt="运行结果"></p>
+<h3 id="3-2-2-调试"><a href="#3-2-2-调试" class="headerlink" title="3.2.2 调试"></a>3.2.2 调试</h3><p>再来试试调试。点击带有小虫子的小三角。哦对了，别忘了加个断点上去。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/vscode-debug.png" alt="调试"></p>
+<p>可以看到，程序在我设置的断点处停下来了。左边区域能看到很多有用的信息，从上往下依次是：变量、监看、调用堆栈、断点。监看处可以点击加号添加自己需要监视的内容，调用堆栈里能看到程序的执行流程，断点处可以快速管理断点。</p>
+<p>中间偏上部分，是控制调试的按钮，从左至右分别是：继续、单步跳过、单步进入、单步退出、重新开始、结束。这些与念书时候学的调试都是一样的，即使不知道的话，你也可以点一下看看效果。</p>
+<p>这里我把断点加在了第 8 行，如果加在第 11 行，你可能会好奇：哎？怎么我的调试没在断点处停下来呢？好好看看代码吧，你觉得为什么没停下来呢？（因为 b 是 true 啊，else 不会走的。）</p>
+<p><strong>很棒！我们现在已经学会了使用 vs code 调试简单的 c++ 程序了！好耶ヽ(✿ﾟ▽ﾟ)ノ</strong></p>
+<p>现在想想，你有了一个可以运行和调试的环境，而且你还学会了简单 c++ 文件的调试，有什么用呢？</p>
+<p>当你学习 c++ 的时候，遇到不确定的，你可以自己写一下，运行或者调试看看了；）</p>
+<h2 id="3-3-复杂或较大-c-项目的调试"><a href="#3-3-复杂或较大-c-项目的调试" class="headerlink" title="3.3 复杂或较大 c++ 项目的调试"></a>3.3 复杂或较大 c++ 项目的调试</h2><h3 id="3-3-1-使用-cmake-管理的项目"><a href="#3-3-1-使用-cmake-管理的项目" class="headerlink" title="3.3.1 使用 cmake 管理的项目"></a>3.3.1 使用 cmake 管理的项目</h3><p>与之前的 main.cpp 一样，我新增加了一个 CMakeLists.txt 的文件，写进去以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">cmake 最低版本要求</span></span><br><span class="line">cmake_minimum_required (VERSION 2.8.12)</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">项目名称</span></span><br><span class="line">project (HELLO)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置可执行文件</span></span><br><span class="line">add_executable (Hello main.cpp)</span><br></pre></td></tr></table></figure>
+
+<p>创建好 CMakeLists.txt 文件后，vs code 可能会有 cmake 的配置通知，询问你是否要配置你的项目，你可以点击 Yes，见下图。(当你点了 Yes 后，vs code 可能还会问你是否每次都自动配置该项目，你可以按自己喜好选择是否要这么做。)</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cmake-notification.png" alt="cmake 配置通知"></p>
+<p>在你第一次按下 Yes 时，vs code 会出现一个弹窗，你需要选择一套编译工具，vs code 里叫 kit，见下图。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cmake-select-kit.png" alt="cmake 配置成功"></p>
+<p>其中第一个选项<code>Scan for kits</code>可以在电脑上搜索所有的编译工具。如果你的弹窗里没有其他选项，你可以选择这个进行搜索。这里我选择 GCC，就是我们前面刚安装的。你可以随时在 vs code 底部的工具栏修改这个配置。（你也可以探索一下底部的工具栏中，其他按钮分别是什么功能。）</p>
+<p>当你按下 Yes 后，你可以看到弹出了一个终端，这是在执行 cmake 的配置：在源码目录创建一个 build 目录，然后执行 cmake（当然不只一个 cmake，包含很多参数呢，我们之前安装的扩展会自动处理的，你不需要关心），产生的各种配置文件会放到 build 目录中。见下图，只有你看到 Configuring done 和 Generating done，才说明你的 cmake 配置成功。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cmake-configuring-done.png" alt="cmake 配置成功"></p>
+<p>如果你的 vs code 没有弹出通知来提醒你进行 cmake 配置，没关系，你可以按下 ctrl+alt+p 快捷键，然后输入 cmake，选择 cmake: reconfigure 选项即可，见下图。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cmake-reconfigure.png" alt="cmake 配置"></p>
+<p>现在你可以运行或调试了。在上面的图里，你都能看到底部的工具栏多出来很多小按钮。从最左边的绿色按钮往右依次是：</p>
+<ol>
+<li>错误与警告；</li>
+<li><code>CMake: [Debug]: Ready</code>，在这里你可以选择编译的程序版本，debug 版或者 release 版。release 版因为不带调试信息，所以产生的可执行文件通常会较小，运行速度快。当然，在你需要调试的时候，应该选择编译 debug 版本。</li>
+<li>选择编译工具；</li>
+<li>编译按钮；</li>
+<li><code>[all]</code>：默认编译目标；这一项选择 all 即可，你应该总是需要编译所有的目标。</li>
+<li>小虫子图标，调试按钮；</li>
+<li>小三角图标，运行按钮；</li>
+<li>需要运行的目标；</li>
+</ol>
+<p>按下编译按钮，即可编译你的程序；按下运行按钮，即可运行你的程序；按下调试按钮，即可调试你的程序，哦，不要忘了断点。</p>
+<p>这个使用 cmake 管理的项目很简单，与本章节题目“复杂或较大 c++ 项目的调试”貌似不太符合。其实不然，这一小节主要是介绍使用 cmake 管理的项目的调试方法，即使很复杂很大的 cmake 项目，你也可以这样调试，相信我，跟这个简单的 demo 是一样的。</p>
+<h3 id="3-3-2-使用-qmake-管理的项目"><a href="#3-3-2-使用-qmake-管理的项目" class="headerlink" title="3.3.2 使用 qmake 管理的项目"></a>3.3.2 使用 qmake 管理的项目</h3><p>可能很多同学都曾尝试过使用 vs code，也可能见到过 vs code 的 settings.json 和 launch.json，但并不知道是什么，也不知道该怎么配置，或者可能上网搜了一下，把别人的复制过来，然后发现，不好使嘛这也。本篇目前为止还没有介绍到这些文件，是不是这篇文章写得不行啊？不急，往下看。（没听说过这些文件的同学，没关系，你也往下看，马上你就知道了。）</p>
+<p>在上一节中，我们介绍了 cmake 项目的调试，cmake 的调试可能很大程度上得益于我们安装的 CMake Tools 这个扩展。但是当我们打开 qmake 的工程时，就束手无策了。下面我介绍一种我使用的方法，让你能在 vs code 中调试 qmake 管理的工程。</p>
+<p>好，来看一下我用 qt creator 创建的一个默认工程。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;mainwindow.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QApplication&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line">    MainWindow w;</span><br><span class="line">    w.<span class="built_in">show</span>();</span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其他代码省略，这只是一个默认的 qt creator 生成的小项目，你也可以自己创建一个出来。</span></span><br></pre></td></tr></table></figure>
+
+<p>据我查找，vs code 没有支持 qmake 的功能。没办法，我们自己来做这件事吧！</p>
+<h4 id="3-3-2-1-qmake-的项目应该怎么编译呢？"><a href="#3-3-2-1-qmake-的项目应该怎么编译呢？" class="headerlink" title="3.3.2.1 qmake 的项目应该怎么编译呢？"></a>3.3.2.1 qmake 的项目应该怎么编译呢？</h4><p>先来看看怎么编译一个 qmake 管理的工程。（我一直说 qmake 管理的工程，我是指由 qt 的 .pro 文件管理的工程，就是说这个工程里没有 CMakeLists.txt，但是有一个 .pro 文件。）</p>
+<p>下面是我的 qt 工程的文件结构。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/qt-pro-file-list.png" alt="qt 工程文件结构"></p>
+<p>现在我在 vs code 里打开终端，可以使用快捷键 <code>Ctrl</code> + `。然后在终端里执行 <code>qmake CONFIG+=debug</code>。其中 <code>CONFIG+=debug</code> 的作用是告诉 qmake 生成出编译 debug 版本的 Makefile。实际上我想再加上一个参数<code>-o build/Makefile</code>，这样编译产生的文件都会在 build 目录下，源码目录看起来会干净一些，如果出了什么问题，不要怕，直接删除 build 目录从头再来！</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/qmake-debug.png" alt="执行 qmake 命令"></p>
+<p>这时候产生了 Makefile 文件，我们可以用 make 命令来编译了。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/cd-build-and-make.png" alt="执行 make 命令"></p>
+<p>make 成功后，我们就可以 cd 到 debug 目录下，运行 hello.exe 了，运行后出来这么一个空白的窗口。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/execute-hello.png" alt="运行 hello.exe"></p>
+<p>这样我们的 qmake 工程就可以编译运行了。接下来再看看怎么调试吧！</p>
+<h4 id="3-3-2-2-qmake-项目的调试"><a href="#3-3-2-2-qmake-项目的调试" class="headerlink" title="3.3.2.2 qmake 项目的调试"></a>3.3.2.2 qmake 项目的调试</h4><p>某些知识的获取是需要有人指引的。这个世界就是这么神奇，有的事情别人不告诉你，你可能一辈子也不会知道。前面我们调试的时候有一些推理过程，每一步需要什么，我们慢慢推理可以找到答案。但这里我必须要告诉你一个东西：<code>launch.json</code>！</p>
+<p>上一小节中，我们编译了 hello.exe，并且它是 debug 版本的。理论上来说，我们可以用调试器调试这个可执行文件。vs code 提供了 <code>launch.json</code>，让我们可以调试可执行文件，一步一步来看看吧;)</p>
+<p><strong>1. 创建 launch.json 文件</strong></p>
+<p>点击 vs code 侧边的”运行与调试”按钮，点击里面的”create a launch.json file”，就可以创建一个 launch.json 文件，它被保存到源码根目录的 <code>.vscode</code> 目录下。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/create-launch-json.png" alt="创建 launch.json"></p>
+<p>点击创建后会弹出窗口，提示你选择 debugger，这里我选择第一个，使用 GDB 调试。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/create-launch-json-select-debugger.png" alt="选择调试器"></p>
+<p>创建好的 launch.json 是这样的。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-initial.png" alt="创建好的 launch.json"></p>
+<p><strong>2. 配置 launch.json 文件</strong></p>
+<p>点击 launch.json 右下角的”Add Configuration”按钮，然后选择”C&#x2F;C++: (gdb) Launch”，vs code 自动添加一个配置。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-add-configuration.png" alt="添加配置"></p>
+<p>添加的配置默认是这样子。从下面这张截图里你可以看到，vs code 的左侧已经变了样子。多出了一个绿色小三角，待会儿我们就是点击这里进行调试。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-configuration-added.png" alt="默认配置样式"></p>
+<p>我在下面代码块中介绍 launch.json 中部分内容的含义（这些是我琢磨的，并没有看官方文档，仅供参考），截图已经太多了&#x2F;(ㄒoㄒ)&#x2F;~~</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// Use IntelliSense to learn about possible attributes.</span></span><br><span class="line">    <span class="comment">// Hover to view descriptions of existing attributes.</span></span><br><span class="line">    <span class="comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="comment">// 名字，这个没什么好说的，你可以随便改名字。</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;(gdb) Launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// 类型，其实我也不知道这个代表什么，不过这里不需要修改，想了解的话还是看官方文档。</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cppdbg&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// request 的值是 launch，意思是说，当你点击调试按钮的时候，这个字段要求 启动（launch） 一个程序。</span></span><br><span class="line">            <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// program 就是你需要 启动 的程序，你需要把它改成你的可执行文件的路径。</span></span><br><span class="line">            <span class="comment">// 其中 $&#123;workspaceFolder&#125; 类似于环境变量，代表当前工作区的文件夹路径。也就是项目根目录。</span></span><br><span class="line">            <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;enter program name, for example $&#123;workspaceFolder&#125;/a.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// args 是你的程序可能会需要的参数。</span></span><br><span class="line">            <span class="comment">// 万一你不知道怎么写，我加了一个例子。</span></span><br><span class="line">            <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;arg1&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;arg2&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// 不了解，不需要修改。</span></span><br><span class="line">            <span class="attr">&quot;stopAtEntry&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// Current Working Directory，应该是代表当前工作目录，不太了解这个变量。</span></span><br><span class="line">            <span class="comment">// 但是有时候（极少情况下，基本不会）你可能会遇到报错跟这个变量有关，</span></span><br><span class="line">            <span class="comment">// 当你遇到的时候，你可以尝试随便打开一个项目里的文件，应该就解决了，</span></span><br><span class="line">            <span class="comment">// 推测这个变量是根据文件确认的。</span></span><br><span class="line">            <span class="comment">// 但是这只是我的猜测，很可能根本不正确，建议你忽略这一小段！</span></span><br><span class="line">            <span class="attr">&quot;cwd&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;fileDirname&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// environment 是环境变量，你可以在这里设置程序需要的环境变量。</span></span><br><span class="line">            <span class="comment">// 防止你不知道里面该怎么写，我加了一个例子。</span></span><br><span class="line">            <span class="attr">&quot;environment&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;DISPLAY&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;:0&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// 不了解，不需要修改。</span></span><br><span class="line">            <span class="attr">&quot;externalConsole&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// 使用 gdb 调试</span></span><br><span class="line">            <span class="attr">&quot;MIMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;gdb&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// 设置 gdb 的路径，不写的话应该会默认为 /usr/bin/gdb 或者 gdb 的默认安装路径。</span></span><br><span class="line">            <span class="comment">// 没有特殊需要的话，建议这一句注释掉或直接删除。</span></span><br><span class="line">            <span class="attr">&quot;miDebuggerPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/path/to/gdb&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// 不了解，不需要修改。</span></span><br><span class="line">            <span class="attr">&quot;setupCommands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Enable pretty-printing for gdb&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;-enable-pretty-printing&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;ignoreFailures&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Set Disassembly Flavor to Intel&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;-gdb-set disassembly-flavor intel&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;ignoreFailures&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>介绍完毕，下面是我修改的针对 hello.exe 的 launch.json，看看和你想的是否一致。（只修改了 program，并注释掉了 miDebuggerPath。）</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-modify-configuration.png" alt="修改配置"></p>
+<p><strong>3. 开始调试</strong></p>
+<p>下面让我们点击左侧的绿色小三角试试。（不要忘了加个断点。）</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/launch-json-start-debug.png" alt="调试成功"></p>
+<p>成功！耶！( •̀ ω •́ )y</p>
+<h4 id="3-3-2-3-自动一点？"><a href="#3-3-2-3-自动一点？" class="headerlink" title="3.3.2.3 自动一点？"></a>3.3.2.3 自动一点？</h4><p>让我们来总结一下，我们是怎么实现 qmake 项目程序调试的。（假设我们已经有了代码了。）</p>
+<ol>
+<li>使用 qmake 生成 Makefile；</li>
+<li>使用 make 编译出可执行文件；</li>
+<li>配置 launch.json 文件；</li>
+<li>开始调试；</li>
+</ol>
+<p>一共有四个步骤。不过好在，第四步是无论如何都要做的，所以我们可以不考虑它；而第三步只需要配置一次即可，我们也不需要考虑。剩下第一二步，我们每次修改源代码都需要执行第二步，而修改了 pro 文件后，会需要执行第一步和第二步。手动编译太费神，能不能让这些工作在点下调试按钮后自动执行呢？当然有！</p>
+<p><strong>1. 创建 tasks.json 文件</strong></p>
+<p>这里我们会认识一个新的 json 文件：tasks.json。创建 tasks.json 肯定也有固定的入口，但是根据我自己的经验，除了我这次写文档，我没主动找过这个入口，每次都是自己主动在 <code>.vscode</code> 目录下创建。你可以自己探索一下怎么<strong>正规地</strong>创建一个 tasks.json。</p>
+<p>默认创建好的 tasks.json 是这样子的。（当然自己创建的肯定是空白内容的。）</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/tasks-json.png" alt="tasks.json"></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// See https://go.microsoft.com/fwlink/?LinkId=733558</span></span><br><span class="line">    <span class="comment">// for the documentation about the tasks.json format</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tasks&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="comment">// label 等同于名字，用名字指定需要执行哪一个 task。</span></span><br><span class="line">            <span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// 类型是 shell 程序，相当于在终端执行命令。</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;shell&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="comment">// 命令内容。</span></span><br><span class="line">            <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo Hello&quot;</span></span><br><span class="line">            <span class="comment">// 我发现我用的这个 vs code 支持 command 里带参数了。</span></span><br><span class="line">            <span class="comment">// 以前用的不支持，不确定是不是升级的新功能。这很棒！</span></span><br><span class="line">            <span class="comment">// 如果你发现你不能带参数，那么还有一个 args 可以让你添加参数。</span></span><br><span class="line">            <span class="comment">// 这与 launch.json 的 args 参数用法相同。</span></span><br><span class="line">            <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;args1&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="string">&quot;args2&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 配置 tasks.json 文件</strong></p>
+<p>介绍完毕，下面是我配置的 tasks.json 文件，看看跟你想的是不是一致。（估计不会;p）我设置了两个 task，一个叫 qmake，执行 qmake 生成 Makefile 的工作；另一个叫 make，执行 make 编译生成可执行程序的工作，make task 依赖 qmake task。（注意，task 的名称是随意取的，不是一定与命令相同或相关。）</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/tasks-configured.png" alt="配置 tasks"></p>
+<p><strong>3. launch.json 中调用 task</strong></p>
+<p>tasks 创建了，那么谁来执行呢？又回到了 launch.json，我们在 launch.json 里增加一个配置，见下图。<code>prelaunchTask</code>意思是在 launch 前，请先执行一个名字（label）叫<code>make</code>的 task。然后 make task 依赖 qmake task，这样就会先执行 qmake，然后执行 make，然后 launch。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/tasks-called-by-launch-json.png" alt="launch.json 中执行 tasks"></p>
+<p><strong>4. 开始调试</strong></p>
+<p>配好你的 tasks.json 和 launch.json，删掉你的 build 目录，点击绿色小三角调试一下试试吧！</p>
+<h3 id="3-3-3-系统库的调试"><a href="#3-3-3-系统库的调试" class="headerlink" title="3.3.3 系统库的调试"></a>3.3.3 系统库的调试</h3><p>很抱歉，系统库的调试这一节我现在不想写了。因为我还没有找到一个比较合适的用于介绍的库。但是我提示一下，你可以按照提示尝试一下。</p>
+<p>假设你有一个程序 A，A 里用到了 B 库。你想要调试 B 库。</p>
+<ol>
+<li>你可以在 vs code 中打开 A 或 B，都可以；</li>
+<li>编译 debug 版本的 B 库，并安装的系统中；</li>
+<li>在 A 调用 B 的地方设置断点；</li>
+<li>进行调试，在断点处，点击单步进入，运气好的话，你就能调试 B 的代码了。</li>
+</ol>
+<h2 id="3-4-远程调试"><a href="#3-4-远程调试" class="headerlink" title="3.4 远程调试"></a>3.4 远程调试</h2><p>远程调试有这么几类适用场景：</p>
+<ol>
+<li>在 Windows 上调试 WSL 里的程序；</li>
+<li>在 Windows 上远程调试 Linux 系统上的程序；</li>
+<li>被调试的程序的暂停会影响系统使用，例如窗口管理器程序；</li>
+<li>远程办公？等等吧……</li>
+</ol>
+<p>远程调试的原理是一样的，其中第一条最简单，只需要在 WSL 的源码目录下执行<code>code .</code>，vs code 就会自动打开远程目录了。（需要提前安装 WSL 插件。）</p>
+<p>下面我在局域网的场景下，介绍一下远程调试。</p>
+<h3 id="3-4-1-安装-remote-插件"><a href="#3-4-1-安装-remote-插件" class="headerlink" title="3.4.1 安装 remote 插件"></a>3.4.1 安装 remote 插件</h3><p>首先在 vs code 中安装以下三个 remote 插件。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/remote-extension.png" alt="安装 remote 插件"></p>
+<h3 id="3-4-2-连接远程主机"><a href="#3-4-2-连接远程主机" class="headerlink" title="3.4.2 连接远程主机"></a>3.4.2 连接远程主机</h3><p>然后点击 vs code 左下角的绿色远程按钮，在弹出的框中选择<code>Connect to Host...</code>选项。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/connect-to-host.png" alt="连接远程"></p>
+<p>然后继续选择<code>add new ssh host</code>选项。第一次连接一台机器的时候需要添加，添加后会出现在下面的列表中。之后连接同一台机器就可以从下面的列表中选择了。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/add-new-ssh-host.png" alt="添加新的 ssh 远程"></p>
+<p>输入你的 ssh 远程主机地址。（下图仅为距离，请以你实际机器为准。）</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/new-ssh-host.png" alt="输入新的 ssh 远程"></p>
+<p>紧接着弹出的窗口是询问你，保存这个主机地址的配置文件选择哪一个？默认选择第一个就好。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/ssh-configuration-file.png" alt="ssh 配置文件"></p>
+<p>保存好后，vs code 并不会自动连接，但是右下角会有弹窗，点击上面的<code>connect</code>按钮。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/click-connect.png" alt="点击连接远程"></p>
+<p>第一次连接时，需要选择远程主机的系统类型，如实选择就好。</p>
+<p><img src="https://gitee.com/pedro_y/blog-img/raw/master/vscode-debug/select-host-system.png" alt="选择远程主机系统"></p>
+<p>运气好的话，你就连接成功了。连接成功后，左下角的绿色图标里就会显示你的远程主机地址。没连接成功也没关系，这里说几点可能导致失败的原因：</p>
+<ol>
+<li>远程主机没有安装 openssh-server。如果是 Linux 系统，执行<code>sudo apt install ssh</code>来安装就可以。</li>
+<li>网络不通。可能你的网络本身就不通，尝试 ping 一下看是不是通的。</li>
+<li>远程主机禁止 ssh 连接。看一下远程主机是否有安全相关的软件，阻止了你的 ssh 连接。</li>
+<li>有时远程主机的 vscode server 由于我不知道的原因，对你不可用了。可以尝试删除用户家目录下的<code>.vscode-server</code>目录，然后重新连接。</li>
+</ol>
+<h3 id="3-4-3-打开文件夹开始调试"><a href="#3-4-3-打开文件夹开始调试" class="headerlink" title="3.4.3 打开文件夹开始调试"></a>3.4.3 打开文件夹开始调试</h3><p>像在本地使用 vs code 一样的打开源码目录，然后开始阅读或调试代码。所有调试步骤与在本地调试完全相同。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://masteryi1024.github.io/2023/08/19/debug-with-vscode/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/08/05/template-and-auto/" class="archive-article-date">
-  	<time datetime="2023-08-05T06:39:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2023/08/05/template-and-auto/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">template-and-auto</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/05/template-and-auto/">template-and-auto</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/08/04/hello-world/" class="archive-article-date">
-  	<time datetime="2023-08-04T14:37:27.303Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/08/04/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -259,8 +559,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
